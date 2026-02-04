@@ -1,0 +1,37 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model agents {
+  id                    String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  relay_id              String    @unique @db.VarChar(64)
+  api_key_hash          String    @db.VarChar(128)
+  workspace_id          String?   @db.VarChar(128)
+  connection_type       String    @default("websocket") @db.VarChar(16)
+  http_endpoint_encrypted String?
+  created_at            DateTime? @default(now()) @db.Timestamp(6)
+  last_seen_at          DateTime? @db.Timestamp(6)
+  metadata              Json?     @default("{}")
+
+  @@index([relay_id])
+  @@index([workspace_id])
+}
+
+model webhook_events {
+  id           String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  relay_id     String    @db.VarChar(64)
+  event_id     String    @unique @db.VarChar(128)
+  payload      Json
+  status       String    @db.VarChar(32)
+  attempts     Int?      @default(0)
+  created_at   DateTime? @default(now()) @db.Timestamp(6)
+  delivered_at DateTime? @db.Timestamp(6)
+
+  @@index([relay_id])
+  @@index([status])
+}

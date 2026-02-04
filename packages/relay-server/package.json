@@ -1,0 +1,32 @@
+{
+  "name": "@powerlobster/relay-server",
+  "version": "1.0.0",
+  "description": "PowerLobster Webhook Relay Server",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
+    "db:migrate": "prisma migrate deploy",
+    "db:generate": "prisma generate"
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "dotenv": "^16.3.1",
+    "fastify": "^4.25.2",
+    "@fastify/websocket": "^8.3.1",
+    "ioredis": "^5.3.2",
+    "pg": "^8.11.3",
+    "ws": "^8.16.0",
+    "@prisma/client": "^5.8.1"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
+    "@types/node": "^20.11.0",
+    "@types/pg": "^8.10.9",
+    "@types/ws": "^8.5.10",
+    "prisma": "^5.8.1",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.3.3"
+  }
+}

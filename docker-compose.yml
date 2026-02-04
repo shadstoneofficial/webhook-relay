@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  relay:
+    build:
+      context: ./packages/relay-server
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - PORT=3000
+      - WEBHOOK_SECRET=dev-secret
+      - RELAY_ENCRYPTION_KEY=0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef
+      - REDIS_URL=redis://redis:6379
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/relay
+      - PUBLIC_URL=http://localhost:3000
+    depends_on:
+      - redis
+      - db
+    volumes:
+      - ./packages/relay-server/src:/app/src
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+
+  db:
+    image: postgres:15-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=relay
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - pg-data:/var/lib/postgresql/data
+
+volumes:
+  pg-data:
