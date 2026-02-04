@@ -7,10 +7,12 @@ exports.logger = void 0;
 const pino_1 = __importDefault(require("pino"));
 exports.logger = (0, pino_1.default)({
     level: process.env.LOG_LEVEL || 'info',
-    transport: {
-        target: 'pino-pretty',
-        options: {
-            colorize: true
+    ...(process.env.NODE_ENV !== 'production' && {
+        transport: {
+            target: 'pino-pretty',
+            options: {
+                colorize: true
+            }
         }
-    }
+    })
 });

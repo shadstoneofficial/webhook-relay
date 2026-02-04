@@ -1,0 +1,107 @@
+    at Object..js (node:internal/modules/cjs/loader:1839:10)
+    at Module.load (node:internal/modules/cjs/loader:1441:32)
+    at Function._load (node:internal/modules/cjs/loader:1263:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:328:14)
+Node.js v22.22.0
+npm error Lifecycle script `start` failed with error:
+npm error code 1
+npm error path /app/packages/relay-server
+npm error workspace @powerlobster/relay-server@1.0.0
+npm error location /app/packages/relay-server
+npm error command failed
+npm error command sh -c node dist/index.js
+npm warn config production Use `--omit=dev` instead.
+> @powerlobster/relay-server@1.0.0 start
+> node dist/index.js
+    at Function._load (node:internal/modules/cjs/loader:1263:12)
+npm error code 1
+/app/node_modules/pino/lib/transport.js:160
+npm error location /app/packages/relay-server
+    at TracingChannel.traceSync (node:diagnostics_channel:328:14)
+npm error path /app/packages/relay-server
+      throw new Error(`unable to determine transport target for "${origin}"`)
+npm error command failed
+      ^
+Error: unable to determine transport target for "pino-pretty"
+npm error workspace @powerlobster/relay-server@1.0.0
+Node.js v22.22.0
+    at fixTarget (/app/node_modules/pino/lib/transport.js:160:13)
+    at normalizeArgs (/app/node_modules/pino/lib/tools.js:358:16)
+npm error Lifecycle script `start` failed with error:
+    at pino (/app/node_modules/pino/pino.js:91:28)
+    at transport (/app/node_modules/pino/lib/transport.js:130:22)
+    at Object.<anonymous> (/app/packages/relay-server/dist/utils/logger.js:8:37)
+    at Module._compile (node:internal/modules/cjs/loader:1706:14)
+    at Object..js (node:internal/modules/cjs/loader:1839:10)
+    at Module.load (node:internal/modules/cjs/loader:1441:32)
+npm error command sh -c node dist/index.js
+npm warn config production Use `--omit=dev` instead.
+> @powerlobster/relay-server@1.0.0 start
+> node dist/index.js
+/app/node_modules/pino/lib/transport.js:160
+      throw new Error(`unable to determine transport target for "${origin}"`)
+      ^
+Error: unable to determine transport target for "pino-pretty"
+    at fixTarget (/app/node_modules/pino/lib/transport.js:160:13)
+    at transport (/app/node_modules/pino/lib/transport.js:130:22)
+    at normalizeArgs (/app/node_modules/pino/lib/tools.js:358:16)
+    at pino (/app/node_modules/pino/pino.js:91:28)
+    at Object.<anonymous> (/app/packages/relay-server/dist/utils/logger.js:8:37)
+    at Module._compile (node:internal/modules/cjs/loader:1706:14)
+    at Object..js (node:internal/modules/cjs/loader:1839:10)
+    at Module.load (node:internal/modules/cjs/loader:1441:32)
+    at Function._load (node:internal/modules/cjs/loader:1263:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:328:14)
+Node.js v22.22.0
+npm error Lifecycle script `start` failed with error:
+npm error code 1
+npm error path /app/packages/relay-server
+npm error workspace @powerlobster/relay-server@1.0.0
+npm error location /app/packages/relay-server
+npm error command failed
+npm error command sh -c node dist/index.js
+npm warn config production Use `--omit=dev` instead.
+> @powerlobster/relay-server@1.0.0 start
+> node dist/index.js
+/app/node_modules/pino/lib/transport.js:160
+      throw new Error(`unable to determine transport target for "${origin}"`)
+      ^
+Error: unable to determine transport target for "pino-pretty"
+    at fixTarget (/app/node_modules/pino/lib/transport.js:160:13)
+    at transport (/app/node_modules/pino/lib/transport.js:130:22)
+    at normalizeArgs (/app/node_modules/pino/lib/tools.js:358:16)
+    at pino (/app/node_modules/pino/pino.js:91:28)
+    at Object.<anonymous> (/app/packages/relay-server/dist/utils/logger.js:8:37)
+    at Module._compile (node:internal/modules/cjs/loader:1706:14)
+    at Object..js (node:internal/modules/cjs/loader:1839:10)
+    at Module.load (node:internal/modules/cjs/loader:1441:32)
+    at Function._load (node:internal/modules/cjs/loader:1263:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:328:14)
+Node.js v22.22.0
+npm error Lifecycle script `start` failed with error:
+npm error code 1
+npm error path /app/packages/relay-server
+npm error workspace @powerlobster/relay-server@1.0.0
+npm error location /app/packages/relay-server
+npm error command failed
+npm error command sh -c node dist/index.js
+Node.js v22.22.0
+npm error Lifecycle script `start` failed with error:
+npm error code 1
+npm warn config production Use `--omit=dev` instead.
+> @powerlobster/relay-server@1.0.0 start
+> node dist/index.js
+/app/node_modules/pino/lib/transport.js:160
+      throw new Error(`unable to determine transport target for "${origin}"`)
+      ^
+Error: unable to determine transport target for "pino-pretty"
+    at fixTarget (/app/node_modules/pino/lib/transport.js:160:13)
+    at transport (/app/node_modules/pino/lib/transport.js:130:22)
+    at normalizeArgs (/app/node_modules/pino/lib/tools.js:358:16)
+    at pino (/app/node_modules/pino/pino.js:91:28)
+    at Object.<anonymous> (/app/packages/relay-server/dist/utils/logger.js:8:37)
+    at Module._compile (node:internal/modules/cjs/loader:1706:14)
+    at Object..js (node:internal/modules/cjs/loader:1839:10)
+    at Module.load (node:internal/modules/cjs/loader:1441:32)
+    at Function._load (node:internal/modules/cjs/loader:1263:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:328:14)
