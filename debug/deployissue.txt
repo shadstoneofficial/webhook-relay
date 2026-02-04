@@ -1,0 +1,114 @@
+ 
+[Region: us-west1]
+INFO No package manager inferred, using npm default
+ 
+ 
+╭─────────────────╮
+│ Railpack 0.17.1 │
+╰─────────────────╯
+ 
+↳ Detected Node
+↳ Using npm package manager
+↳ Found workspace with 3 packages
+ 
+Packages
+──────────
+node  │  22.22.0  │  railpack default (22)
+ 
+Steps
+──────────
+▸ install
+$ npm install
+ 
+▸ build
+$ npm run build --workspace=@powerlobster/relay-server
+ 
+Deploy
+──────────
+$ npm run start --workspace=@powerlobster/relay-server
+ 
+ 
+Successfully prepared Railpack plan for build
+ 
+ 
+context: 6dmz-iTE_
+
+load build definition from railpack-plan.json
+0ms
+
+install mise packages: node
+1s
+mise node@22.22.0 ✓ installed
+
+install apt packages: libatomic1
+2s
+Processing triggers for libc-bin (2.36-9+deb12u13) ...
+
+mkdir -p /app/node_modules/.cache
+129ms
+
+copy examples/basic-nodejs/package.json, package.json, packages/node-sdk/package.json, packages/relay-server/package.json, packages/relay-server/prisma
+133ms
+
+npm install
+14s
+Run `npm audit` for details.
+
+copy /root/.local/state/mise, /etc/mise/config.toml, /usr/local/bin/mise, /mise/installs, /mise/shims cached
+0ms
+
+copy / /app, .
+101ms
+
+npm run build --workspace=@powerlobster/relay-server
+1s
+npm warn config production Use `--omit=dev` instead.
+> @powerlobster/relay-server@1.0.0 build
+> tsc
+src/index.ts(30,45): error TS2769: No overload matches this call.
+
+  Overload 1 of 3, '(obj: "Failed to start server:", msg?: undefined): void', gave the following error.
+    Argument of type 'unknown' is not assignable to parameter of type 'undefined'.
+  Overload 2 of 3, '(obj: "Failed to start server:", msg?: undefined, ...args: unknown[]): void', gave the following error.
+    Argument of type 'unknown' is not assignable to parameter of type 'undefined'.
+src/redis/client.ts(14,48): error TS2769: No overload matches this call.
+
+  Overload 1 of 3, '(obj: "Failed to connect to Redis", msg?: undefined): void', gave the following error.
+    Argument of type 'unknown' is not assignable to parameter of type 'undefined'.
+  Overload 2 of 3, '(obj: "Failed to connect to Redis", msg?: undefined, ...args: unknown[]): void', gave the following error.
+    Argument of type 'unknown' is not assignable to parameter of type 'undefined'.
+src/server.ts(37,57): error TS2769: No overload matches this call.
+
+  Overload 1 of 4, '(path: string, opts: RouteShorthandOptions<RawServerDefault, IncomingMessage, ServerResponse<IncomingMessage>, RequestGenericInterface, unknown, FastifySchema, FastifyTypeProvider, FastifyBaseLogger> & { ...; }, handler?: WebsocketHandler<...> | undefined): FastifyInstance<...>', gave the following error.
+    Argument of type '(connection: WebSocket, request: any) => Promise<void>' is not assignable to parameter of type 'WebsocketHandler<RawServerDefault, IncomingMessage, RequestGenericInterface, unknown, FastifySchema, FastifyTypeProvider, FastifyBaseLogger>'.
+      Types of parameters 'connection' and 'connection' are incompatible.
+        Type 'SocketStream' is missing the following properties from type 'WebSocket': binaryType, bufferedAmount, extensions, protocol, and 17 more.
+  Overload 2 of 4, '(path: string, opts: RouteShorthandOptions<RawServerDefault, IncomingMessage, ServerResponse<IncomingMessage>, RouteGenericInterface, unknown, FastifySchema, FastifyTypeProvider, FastifyBaseLogger>, handler: RouteHandlerMethod<...>): FastifyInstance<...>', gave the following error.
+    Argument of type '(connection: WebSocket, request: any) => Promise<void>' is not assignable to parameter of type 'RouteHandlerMethod<RawServerDefault, IncomingMessage, ServerResponse<IncomingMessage>, RouteGenericInterface, unknown, FastifySchema, FastifyTypeProvider, FastifyBaseLogger>'.
+      Types of parameters 'connection' and 'request' are incompatible.
+        Type 'FastifyRequest<RouteGenericInterface, RawServerDefault, IncomingMessage, FastifySchema, FastifyTypeProvider, unknown, FastifyBaseLogger, ResolveFastifyRequestType<...>>' is missing the following properties from type 'WebSocket': binaryType, bufferedAmount, extensions, isPaused, and 33 more.
+src/websocket/manager.ts(95,50): error TS2769: No overload matches this call.
+
+  Overload 1 of 3, '(obj: "WebSocket message error:", msg?: undefined): void', gave the following error.
+
+    Argument of type 'unknown' is not assignable to parameter of type 'undefined'.
+  Overload 2 of 3, '(obj: "WebSocket message error:", msg?: undefined, ...args: unknown[]): void', gave the following error.
+
+    Argument of type 'unknown' is not assignable to parameter of type 'undefined'.
+src/websocket/manager.ts(109,40): error TS2769: No overload matches this call.
+
+  Overload 1 of 3, '(obj: "WebSocket error:", msg?: undefined): void', gave the following error.
+
+    Argument of type 'Error' is not assignable to parameter of type 'undefined'.
+  Overload 2 of 3, '(obj: "WebSocket error:", msg?: undefined, ...args: unknown[]): void', gave the following error.
+
+    Argument of type 'Error' is not assignable to parameter of type 'undefined'.
+npm error Lifecycle script `build` failed with error:
+
+npm error code 2
+npm error path /app/packages/relay-server
+npm error workspace @powerlobster/relay-server@1.0.0
+npm error location /app/packages/relay-server
+npm error command failed
+npm error command sh -c tsc
+ERROR: failed to build: failed to solve: process "sh -c npm run build --workspace=@powerlobster/relay-server" did not complete successfully: exit code: 2

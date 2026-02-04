@@ -1,4 +1,6 @@
+import { SocketStream } from '@fastify/websocket';
 import { WebSocket } from 'ws';
+import { FastifyRequest } from 'fastify';
 import crypto from 'crypto';
 import { verifyApiKey, getAgentByRelayId } from '../services/auth';
 import { logger } from '../utils/logger';
@@ -21,7 +23,8 @@ export class WebSocketManager {
     this.heartbeatInterval = setInterval(() => this.sendHeartbeats(), 30000);
   }
   
-  async handleConnection(connection: WebSocket, request: any) {
+  async handleConnection(conn: SocketStream, request: FastifyRequest) {
+    const connection = conn.socket;
     let authenticated = false;
     let relayId: string | null = null;
     
@@ -92,7 +95,7 @@ export class WebSocketManager {
         }
         
       } catch (error) {
-        logger.error('WebSocket message error:', error);
+        logger.error(error, 'WebSocket message error');
         this.sendError(connection, 'internal_error', 'Failed to process message');
       }
     });
@@ -106,7 +109,7 @@ export class WebSocketManager {
     });
     
     connection.on('error', (error: Error) => {
-      logger.error('WebSocket error:', error);
+      logger.error(error, 'WebSocket error');
     });
   }
   
