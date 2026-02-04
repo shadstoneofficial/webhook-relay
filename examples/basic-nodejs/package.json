@@ -1,0 +1,24 @@
+{
+  "name": "powerlobster-webhook-relay-example",
+  "version": "1.0.0",
+  "description": "Basic Node.js example for PowerLobster Webhook Relay",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "keywords": [
+    "powerlobster",
+    "webhook",
+    "example"
+  ],
+  "author": "PowerLobster HQ",
+  "license": "MIT",
+  "dependencies": {
+    "@powerlobster/webhook": "^1.0.0",
+    "dotenv": "^16.4.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.3"
+  }
+}
