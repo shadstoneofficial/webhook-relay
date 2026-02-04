@@ -14,7 +14,7 @@ interface AgentConnection {
 
 export class WebSocketManager {
   private connections: Map<string, AgentConnection> = new Map();
-  private heartbeatInterval: NodeJS.Timer;
+  private heartbeatInterval: NodeJS.Timeout;
   
   constructor() {
     // Start heartbeat loop (every 30s)
@@ -47,13 +47,15 @@ export class WebSocketManager {
           const sessionId = crypto.randomUUID();
           
           // Store connection
-          this.connections.set(relayId, {
-            relayId,
-            socket: connection,
-            sessionId,
-            connectedAt: Date.now(),
-            lastPing: Date.now()
-          });
+          if (relayId) {
+            this.connections.set(relayId, {
+              relayId,
+              socket: connection,
+              sessionId,
+              connectedAt: Date.now(),
+              lastPing: Date.now()
+            });
+          }
           
           // Store session in Redis (for multi-instance routing)
           await redis.setex(
@@ -103,7 +105,7 @@ export class WebSocketManager {
       }
     });
     
-    connection.on('error', (error) => {
+    connection.on('error', (error: Error) => {
       logger.error('WebSocket error:', error);
     });
   }
