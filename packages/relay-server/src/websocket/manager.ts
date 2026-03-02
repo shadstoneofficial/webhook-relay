@@ -38,6 +38,10 @@ export class WebSocketManager {
             return this.sendError(connection, 'authentication_required', 'Must authenticate first');
           }
           
+          if (!message.relay_id) {
+            return this.sendError(connection, 'invalid_request', 'Missing relay_id');
+          }
+
           // Verify credentials
           const agent = await getAgentByRelayId(message.relay_id);
           if (!agent || !await verifyApiKey(message.api_key, agent.api_key_hash)) {

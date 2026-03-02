@@ -26,6 +26,9 @@ class WebSocketManager {
                     if (message.type !== 'auth') {
                         return this.sendError(connection, 'authentication_required', 'Must authenticate first');
                     }
+                    if (!message.relay_id) {
+                        return this.sendError(connection, 'invalid_request', 'Missing relay_id');
+                    }
                     // Verify credentials
                     const agent = await (0, auth_1.getAgentByRelayId)(message.relay_id);
                     if (!agent || !await (0, auth_1.verifyApiKey)(message.api_key, agent.api_key_hash)) {

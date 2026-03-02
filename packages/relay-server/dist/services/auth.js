@@ -24,6 +24,8 @@ async function verifyApiKey(apiKey, hash) {
     return bcrypt_1.default.compare(apiKey, hash);
 }
 async function getAgentByRelayId(relayId) {
+    if (!relayId)
+        return null;
     return client_1.db.agents.findUnique({
         where: { relay_id: relayId }
     });

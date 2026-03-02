@@ -20,6 +20,7 @@ export async function verifyApiKey(apiKey: string, hash: string): Promise<boolea
 }
 
 export async function getAgentByRelayId(relayId: string) {
+  if (!relayId) return null;
   return db.agents.findUnique({
     where: { relay_id: relayId }
   });

@@ -1,0 +1,88 @@
+2026-03-02T05:20:54.164054426Z [inf]  Server listening at http://0.0.0.0:8080
+2026-03-02T05:20:54.164060835Z [inf]  🦞 Relay server started on port 8080
+2026-03-02T05:20:54.164071484Z [err]  npm warn config production Use `--omit=dev` instead.
+2026-03-02T05:20:54.164077880Z [inf]  
+2026-03-02T05:20:54.164083308Z [inf]  > @powerlobster/relay-server@1.0.0 start
+2026-03-02T05:20:54.164087833Z [inf]  > node dist/index.js
+2026-03-02T05:20:54.164094063Z [inf]  
+2026-03-02T05:20:54.164097828Z [inf]  Connected to Redis
+2026-03-02T05:20:54.468269833Z [inf]  Starting Container
+2026-03-02T08:14:36.274629390Z [inf]  incoming request
+2026-03-02T08:14:36.274634165Z [inf]  Route GET:/.env not found
+2026-03-02T08:14:36.274637256Z [inf]  request completed
+2026-03-02T11:38:39.867937898Z [inf]  incoming request
+2026-03-02T11:38:39.867941593Z [inf]  Route GET:/ not found
+2026-03-02T11:38:39.867944858Z [inf]  request completed
+2026-03-02T11:38:39.867949003Z [inf]  incoming request
+2026-03-02T11:38:39.867951904Z [inf]  Route GET:/favicon.ico not found
+2026-03-02T11:38:39.867957227Z [inf]  request completed
+2026-03-02T11:38:59.606365291Z [inf]  incoming request
+2026-03-02T11:38:59.606369212Z [inf]  Route GET:/ not found
+2026-03-02T11:38:59.606373105Z [inf]  request completed
+2026-03-02T12:15:29.551158660Z [inf]  incoming request
+2026-03-02T12:15:29.551161557Z [inf]  Route GET:/ not found
+2026-03-02T12:15:29.551164377Z [inf]  request completed
+2026-03-02T12:15:29.551167157Z [inf]  incoming request
+2026-03-02T12:15:29.551169849Z [inf]  Route GET:/favicon.ico not found
+2026-03-02T12:15:29.551172428Z [inf]  request completed
+2026-03-02T12:56:22.642681036Z [inf]  Route GET:/ not found
+2026-03-02T12:56:22.642682387Z [inf]  incoming request
+2026-03-02T12:56:22.642689144Z [inf]  request completed
+2026-03-02T13:08:52.331049556Z [inf]  incoming request
+2026-03-02T13:08:52.331052143Z [inf]  Route GET:/ not found
+2026-03-02T13:08:52.331054877Z [inf]  request completed
+2026-03-02T13:08:52.331057784Z [inf]  incoming request
+2026-03-02T13:08:52.331062932Z [inf]  Route GET:/ not found
+2026-03-02T13:08:52.331065454Z [inf]  request completed
+2026-03-02T13:09:00.332447209Z [inf]  incoming request
+2026-03-02T13:09:00.332450664Z [inf]  Route GET:/ not found
+2026-03-02T13:09:00.332454029Z [inf]  request completed
+2026-03-02T13:09:30.143919257Z [inf]  incoming request
+2026-03-02T13:09:30.143923500Z [inf]  Route GET:/ not found
+2026-03-02T13:09:30.143926445Z [inf]  request completed
+2026-03-02T13:10:10.144492771Z [inf]  incoming request
+2026-03-02T13:10:10.144495710Z [inf]  Route GET:/ not found
+2026-03-02T13:10:10.144498494Z [inf]  request completed
+2026-03-02T13:11:09.867374601Z [inf]  incoming request
+2026-03-02T13:11:09.867379211Z [inf]  Route GET:/ not found
+2026-03-02T13:11:09.867382232Z [inf]  request completed
+2026-03-02T13:12:10.424201603Z [inf]  incoming request
+2026-03-02T13:12:10.424205532Z [inf]  Route GET:/ not found
+2026-03-02T13:12:10.424208813Z [inf]  request completed
+2026-03-02T13:13:10.310378774Z [inf]  incoming request
+2026-03-02T13:13:10.310381474Z [inf]  Route GET:/ not found
+2026-03-02T13:13:10.310385437Z [inf]  request completed
+2026-03-02T13:13:10.392945718Z [inf]  incoming request
+2026-03-02T13:13:10.670313543Z [inf]  WebSocket message error
+2026-03-02T13:23:17.601934054Z [inf]  incoming request
+2026-03-02T13:23:17.601938821Z [inf]  WebSocket message error
+2026-03-02T13:33:32.983474584Z [inf]  incoming request
+2026-03-02T13:33:32.983478280Z [inf]  WebSocket message error
+2026-03-02T13:43:38.510142191Z [inf]  incoming request
+2026-03-02T13:43:38.510146248Z [inf]  WebSocket message error
+2026-03-02T13:53:43.703516334Z [inf]  incoming request
+2026-03-02T13:53:43.703519622Z [inf]  WebSocket message error
+2026-03-02T14:03:48.062708206Z [inf]  incoming request
+2026-03-02T14:03:48.062711462Z [inf]  WebSocket message error
+2026-03-02T14:13:54.753037021Z [inf]  incoming request
+2026-03-02T14:13:54.753040841Z [inf]  WebSocket message error
+2026-03-02T14:20:28.673867923Z [inf]  incoming request
+2026-03-02T14:20:28.673871101Z [inf]  Route GET:/ not found
+2026-03-02T14:20:28.673874176Z [inf]  request completed
+2026-03-02T14:24:00.882889599Z [inf]  incoming request
+2026-03-02T14:24:00.882893399Z [inf]  WebSocket message error
+2026-03-02T14:34:06.831973018Z [inf]  incoming request
+2026-03-02T14:34:06.831975593Z [inf]  WebSocket message error
+2026-03-02T14:44:13.791237483Z [inf]  incoming request
+2026-03-02T14:44:13.791240989Z [inf]  WebSocket message error
+2026-03-02T14:54:21.734462794Z [inf]  incoming request
+2026-03-02T14:54:21.734467622Z [inf]  WebSocket message error
+2026-03-02T15:04:27.856657461Z [inf]  incoming request
+2026-03-02T15:04:27.856668837Z [inf]  WebSocket message error
+2026-03-02T15:14:34.810006131Z [inf]  incoming request
+2026-03-02T15:14:34.810009769Z [inf]  WebSocket message error
+2026-03-02T15:24:49.055753102Z [inf]  incoming request
+2026-03-02T15:24:49.055756712Z [inf]  WebSocket message error
+2026-03-02T15:28:29.576596157Z [inf]  incoming request
+2026-03-02T15:28:29.576600257Z [inf]  Route GET:/ not found
+2026-03-02T15:28:29.576603292Z [inf]  request completed
