@@ -1,0 +1,104 @@
+npm error Lifecycle script `start` failed with error:
+    at Module.require (node:internal/modules/cjs/loader:1463:12)
+npm error code 1
+    at require (node:internal/modules/helpers:147:16)
+npm error path /app/packages/relay-server
+npm error workspace @powerlobster/relay-server@1.0.0
+npm error location /app/packages/relay-server
+npm error command failed
+Node.js v22.22.0
+    at wrapModuleLoad (node:internal/modules/cjs/loader:237:24)
+npm warn config production Use `--omit=dev` instead.
+> @powerlobster/relay-server@1.0.0 start
+> node dist/index.js
+/app/node_modules/.prisma/client/default.js:43
+    throw new Error('@prisma/client did not initialize yet. Please run "prisma generate" and try to import it again.');
+    ^
+Error: @prisma/client did not initialize yet. Please run "prisma generate" and try to import it again.
+    at new PrismaClient (/app/node_modules/.prisma/client/default.js:43:11)
+    at Object.<anonymous> (/app/packages/relay-server/dist/database/client.js:6:14)
+    at Module._compile (node:internal/modules/cjs/loader:1706:14)
+    at Object..js (node:internal/modules/cjs/loader:1839:10)
+    at Module.load (node:internal/modules/cjs/loader:1441:32)
+    at Function._load (node:internal/modules/cjs/loader:1263:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:328:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:237:24)
+    at Module.require (node:internal/modules/cjs/loader:1463:12)
+    at require (node:internal/modules/helpers:147:16)
+Node.js v22.22.0
+npm error Lifecycle script `start` failed with error:
+npm error code 1
+npm error path /app/packages/relay-server
+npm error workspace @powerlobster/relay-server@1.0.0
+npm error location /app/packages/relay-server
+npm error command failed
+npm error command sh -c node dist/index.js
+Node.js v22.22.0
+npm error Lifecycle script `start` failed with error:
+Error: @prisma/client did not initialize yet. Please run "prisma generate" and try to import it again.
+    at Object.<anonymous> (/app/packages/relay-server/dist/database/client.js:6:14)
+    at new PrismaClient (/app/node_modules/.prisma/client/default.js:43:11)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:237:24)
+    at Function._load (node:internal/modules/cjs/loader:1263:12)
+    at Module.require (node:internal/modules/cjs/loader:1463:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:328:14)
+> @powerlobster/relay-server@1.0.0 start
+    at require (node:internal/modules/helpers:147:16)
+> node dist/index.js
+    at Module._compile (node:internal/modules/cjs/loader:1706:14)
+npm warn config production Use `--omit=dev` instead.
+/app/node_modules/.prisma/client/default.js:43
+    at Object..js (node:internal/modules/cjs/loader:1839:10)
+    throw new Error('@prisma/client did not initialize yet. Please run "prisma generate" and try to import it again.');
+    at Module.load (node:internal/modules/cjs/loader:1441:32)
+    ^
+npm error code 1
+npm error path /app/packages/relay-server
+npm error workspace @powerlobster/relay-server@1.0.0
+npm error location /app/packages/relay-server
+npm error command failed
+npm error command sh -c node dist/index.js
+npm warn config production Use `--omit=dev` instead.
+> @powerlobster/relay-server@1.0.0 start
+> node dist/index.js
+    at require (node:internal/modules/helpers:147:16)
+/app/node_modules/.prisma/client/default.js:43
+    throw new Error('@prisma/client did not initialize yet. Please run "prisma generate" and try to import it again.');
+    ^
+Node.js v22.22.0
+Error: @prisma/client did not initialize yet. Please run "prisma generate" and try to import it again.
+    at new PrismaClient (/app/node_modules/.prisma/client/default.js:43:11)
+    at Object.<anonymous> (/app/packages/relay-server/dist/database/client.js:6:14)
+    at Module._compile (node:internal/modules/cjs/loader:1706:14)
+    at Object..js (node:internal/modules/cjs/loader:1839:10)
+    at Module.load (node:internal/modules/cjs/loader:1441:32)
+    at Function._load (node:internal/modules/cjs/loader:1263:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:328:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:237:24)
+    at Module.require (node:internal/modules/cjs/loader:1463:12)
+npm error Lifecycle script `start` failed with error:
+npm error code 1
+npm error path /app/packages/relay-server
+npm error workspace @powerlobster/relay-server@1.0.0
+npm error location /app/packages/relay-server
+npm error command failed
+npm error command sh -c node dist/index.js
+npm warn config production Use `--omit=dev` instead.
+> @powerlobster/relay-server@1.0.0 start
+> node dist/index.js
+/app/node_modules/.prisma/client/default.js:43
+    throw new Error('@prisma/client did not initialize yet. Please run "prisma generate" and try to import it again.');
+    ^
+Error: @prisma/client did not initialize yet. Please run "prisma generate" and try to import it again.
+    at new PrismaClient (/app/node_modules/.prisma/client/default.js:43:11)
+    at Object.<anonymous> (/app/packages/relay-server/dist/database/client.js:6:14)
+    at Module._compile (node:internal/modules/cjs/loader:1706:14)
+    at Object..js (node:internal/modules/cjs/loader:1839:10)
+    at Module.load (node:internal/modules/cjs/loader:1441:32)
+    at Function._load (node:internal/modules/cjs/loader:1263:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:328:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:237:24)
+    at Module.require (node:internal/modules/cjs/loader:1463:12)
+    at require (node:internal/modules/helpers:147:16)
+Node.js v22.22.0
+npm error Lifecycle script `start` failed with error:
