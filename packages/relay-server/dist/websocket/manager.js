@@ -8,6 +8,7 @@ const crypto_1 = __importDefault(require("crypto"));
 const auth_1 = require("../services/auth");
 const logger_1 = require("../utils/logger");
 const client_1 = require("../redis/client");
+const client_2 = require("../database/client");
 class WebSocketManager {
     constructor() {
         this.connections = new Map();
@@ -92,8 +93,25 @@ class WebSocketManager {
     }
     async sendWebhook(relayId, event) {
         const connection = this.connections.get(relayId);
+        // 1. Persist to Database (Always)
+        try {
+            await client_2.db.webhook_events.create({
+                data: {
+                    id: event.id, // Internal UUID
+                    event_id: event.id, // Using internal UUID as event_id for now, or use event.payload.id if available
+                    relay_id: relayId,
+                    payload: event.payload,
+                    status: 'queued',
+                    created_at: new Date(event.timestamp || Date.now())
+                }
+            });
+        }
+        catch (dbError) {
+            logger_1.logger.error(dbError, 'Failed to persist webhook event to DB');
+            // Continue to try delivering even if DB write fails (best effort)
+        }
         if (!connection) {
-            // Agent offline - queue for retry
+            // Agent offline - queue for retry (Redis is secondary/legacy queue now)
             await client_1.redis.lpush(`queue:pending:${relayId}`, JSON.stringify(event));
             return { status: 'queued' };
         }
@@ -107,11 +125,31 @@ class WebSocketManager {
         }));
         // Store pending ack (timeout after 30s)
         await client_1.redis.setex(`ack:pending:${event.id}`, 30, JSON.stringify({ relayId, sentAt: Date.now() }));
+        // Optimistically update status (or wait for ack? Let's keep it 'queued' until acked, or 'delivered' if sent?)
+        // The previous logic returned 'delivered' immediately upon sending.
+        // Ideally we should update to 'delivered' only on ACK.
+        // For now, to match existing contract:
         return { status: 'delivered' };
     }
     async handleAck(relayId, eventId) {
         // Remove from pending queue
         await client_1.redis.del(`ack:pending:${eventId}`);
+        // Update DB status to delivered
+        try {
+            await client_2.db.webhook_events.updateMany({
+                where: {
+                    id: eventId,
+                    relay_id: relayId
+                },
+                data: {
+                    status: 'delivered',
+                    delivered_at: new Date()
+                }
+            });
+        }
+        catch (dbError) {
+            logger_1.logger.error(dbError, 'Failed to update event status to delivered');
+        }
         logger_1.logger.debug(`Event acknowledged: ${eventId} by ${relayId}`);
     }
     sendHeartbeats() {
