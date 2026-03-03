@@ -9,10 +9,15 @@ import { logger } from '../utils/logger';
 export async function webhookRouter(server: FastifyInstance, opts: any) {
   const wsManager: WebSocketManager = opts.wsManager;
 
-  server.post('/webhook/:relay_id', async (request, reply) => {
+  server.post('/webhook/:relay_id', {
+    config: {
+      rawBody: true
+    }
+  }, async (request, reply) => {
     const { relay_id } = request.params as { relay_id: string };
     const signature = request.headers['x-powerlobster-signature'] as string;
     const timestamp = request.headers['x-powerlobster-timestamp'] as string;
+    const rawBody = (request as any).rawBody;
     
     try {
       // 1. Verify HMAC signature
@@ -28,7 +33,7 @@ export async function webhookRouter(server: FastifyInstance, opts: any) {
       
       if (process.env.WEBHOOK_SECRET) {
         isValidSignature = verifySignature(
-          request.body,
+          rawBody, // Use raw body string
           timestamp,
           signature,
           process.env.WEBHOOK_SECRET
@@ -38,7 +43,7 @@ export async function webhookRouter(server: FastifyInstance, opts: any) {
       // If failed, try validating with ADMIN_KEY (fallback for legacy/dev setups)
       if (!isValidSignature && process.env.ADMIN_KEY) {
         isValidSignature = verifySignature(
-          request.body,
+          rawBody, // Use raw body string
           timestamp,
           signature,
           process.env.ADMIN_KEY

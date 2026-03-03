@@ -7,6 +7,7 @@ exports.createServer = createServer;
 const fastify_1 = __importDefault(require("fastify"));
 const websocket_1 = __importDefault(require("@fastify/websocket"));
 const cors_1 = __importDefault(require("@fastify/cors"));
+const fastify_raw_body_1 = __importDefault(require("fastify-raw-body"));
 const webhook_1 = require("./routes/webhook");
 const register_1 = require("./routes/register");
 const health_1 = require("./routes/health");
@@ -22,6 +23,12 @@ async function createServer() {
         requestIdLogLabel: 'request_id'
     });
     // Register plugins
+    await server.register(fastify_raw_body_1.default, {
+        field: 'rawBody',
+        global: false, // Only use it where needed
+        encoding: 'utf8',
+        runFirst: true
+    });
     await server.register(cors_1.default, {
         origin: '*', // For now, allow all origins. In production, you might want to restrict this to powerlobster.com
         methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],

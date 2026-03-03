@@ -11,10 +11,15 @@ const ratelimit_1 = require("../services/ratelimit");
 const logger_1 = require("../utils/logger");
 async function webhookRouter(server, opts) {
     const wsManager = opts.wsManager;
-    server.post('/webhook/:relay_id', async (request, reply) => {
+    server.post('/webhook/:relay_id', {
+        config: {
+            rawBody: true
+        }
+    }, async (request, reply) => {
         const { relay_id } = request.params;
         const signature = request.headers['x-powerlobster-signature'];
         const timestamp = request.headers['x-powerlobster-timestamp'];
+        const rawBody = request.rawBody;
         try {
             // 1. Verify HMAC signature
             if (!signature || !timestamp) {
@@ -26,11 +31,13 @@ async function webhookRouter(server, opts) {
             // Try validating with WEBHOOK_SECRET first
             let isValidSignature = false;
             if (process.env.WEBHOOK_SECRET) {
-                isValidSignature = (0, signature_1.verifySignature)(request.body, timestamp, signature, process.env.WEBHOOK_SECRET);
+                isValidSignature = (0, signature_1.verifySignature)(rawBody, // Use raw body string
+                timestamp, signature, process.env.WEBHOOK_SECRET);
             }
             // If failed, try validating with ADMIN_KEY (fallback for legacy/dev setups)
             if (!isValidSignature && process.env.ADMIN_KEY) {
-                isValidSignature = (0, signature_1.verifySignature)(request.body, timestamp, signature, process.env.ADMIN_KEY);
+                isValidSignature = (0, signature_1.verifySignature)(rawBody, // Use raw body string
+                timestamp, signature, process.env.ADMIN_KEY);
                 if (isValidSignature) {
                     logger_1.logger.warn(`Relay ${relay_id} validated using ADMIN_KEY instead of WEBHOOK_SECRET. Please update configuration.`);
                 }

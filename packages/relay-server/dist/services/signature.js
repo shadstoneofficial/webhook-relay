@@ -5,9 +5,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.verifySignature = verifySignature;
 const crypto_1 = __importDefault(require("crypto"));
-function verifySignature(payload, timestamp, signature, secret) {
+function verifySignature(payload, // Now accepts raw string or object
+timestamp, signature, secret) {
     // Construct signed payload (timestamp + body)
-    const body = JSON.stringify(payload);
+    const body = typeof payload === 'string' ? payload : JSON.stringify(payload);
     const signedPayload = `${timestamp}.${body}`;
     // Compute expected signature
     const expectedSignature = crypto_1.default

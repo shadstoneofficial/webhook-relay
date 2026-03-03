@@ -1,13 +1,13 @@
 import crypto from 'crypto';
 
 export function verifySignature(
-  payload: any,
+  payload: string | any, // Now accepts raw string or object
   timestamp: string,
   signature: string,
   secret: string
 ): boolean {
   // Construct signed payload (timestamp + body)
-  const body = JSON.stringify(payload);
+  const body = typeof payload === 'string' ? payload : JSON.stringify(payload);
   const signedPayload = `${timestamp}.${body}`;
   
   // Compute expected signature
