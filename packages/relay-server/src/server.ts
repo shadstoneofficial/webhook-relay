@@ -52,9 +52,8 @@ export async function createServer() {
   server.register(statsRouter, { prefix: '/api/v1' });
   server.register(eventsRouter, { prefix: '/api/v1' });
   
-  server.register(async (fastify) => {
-    fastify.get('/api/v1/connect', { websocket: true }, wsManager.handleConnection.bind(wsManager));
-  });
+  // WebSocket endpoint (Moved out of async wrapper for clarity)
+  server.get('/api/v1/connect', { websocket: true }, wsManager.handleConnection.bind(wsManager));
   
   // Serve skill.md
   server.get('/skill.md', async (request, reply) => {
