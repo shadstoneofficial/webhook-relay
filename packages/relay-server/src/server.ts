@@ -1,5 +1,6 @@
 import Fastify from 'fastify';
 import fastifyWebsocket from '@fastify/websocket';
+import cors from '@fastify/cors';
 import { webhookRouter } from './routes/webhook';
 import { registerRouter } from './routes/register';
 import { healthRouter } from './routes/health';
@@ -17,6 +18,11 @@ export async function createServer() {
   });
   
   // Register plugins
+  await server.register(cors, {
+    origin: '*', // For now, allow all origins. In production, you might want to restrict this to powerlobster.com
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'x-powerlobster-signature', 'x-powerlobster-timestamp', 'x-admin-key']
+  });
   await server.register(fastifyWebsocket);
   
   // Apply middleware

@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.createServer = createServer;
 const fastify_1 = __importDefault(require("fastify"));
 const websocket_1 = __importDefault(require("@fastify/websocket"));
+const cors_1 = __importDefault(require("@fastify/cors"));
 const webhook_1 = require("./routes/webhook");
 const register_1 = require("./routes/register");
 const health_1 = require("./routes/health");
@@ -21,6 +22,11 @@ async function createServer() {
         requestIdLogLabel: 'request_id'
     });
     // Register plugins
+    await server.register(cors_1.default, {
+        origin: '*', // For now, allow all origins. In production, you might want to restrict this to powerlobster.com
+        methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+        allowedHeaders: ['Content-Type', 'Authorization', 'x-powerlobster-signature', 'x-powerlobster-timestamp', 'x-admin-key']
+    });
     await server.register(websocket_1.default);
     // Apply middleware
     server.addHook('onRequest', security_1.securityMiddleware);
