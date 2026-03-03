@@ -62,11 +62,20 @@ export async function webhookRouter(server: FastifyInstance, opts: any) {
       }
       
       // 2. Check timestamp (prevent replay attacks)
-      const eventTime = parseInt(timestamp);
+      // Handle both seconds (Python/Unix default) and milliseconds (JS default)
+      let eventTime = parseInt(timestamp);
+      
+      // Heuristic: If timestamp is less than 10 billion (valid until year 2286), it's seconds.
+      // JS Date.now() returns ~1.7 trillion (milliseconds).
+      if (eventTime < 10000000000) {
+        eventTime *= 1000;
+      }
+      
       const now = Date.now();
       const MAX_AGE = 5 * 60 * 1000; // 5 minutes
       
       if (Math.abs(now - eventTime) > MAX_AGE) {
+        logger.warn(`Timestamp rejected. Server: ${now}, Event (adj): ${eventTime}, Diff: ${Math.abs(now - eventTime)}`);
         return reply.code(401).send({
           error: 'unauthorized',
           message: 'Timestamp too old or in future'
