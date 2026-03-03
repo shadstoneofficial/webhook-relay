@@ -5,11 +5,16 @@ import crypto from 'crypto';
 
 export async function registerRouter(server: FastifyInstance) {
   server.post('/register', async (request, reply) => {
-    // In a real app, this should be authenticated (e.g. by PowerLobster main API)
-    // For now, we allow open registration for demo purposes or use a master key
+    // Check for admin key
+    const adminKey = request.headers['x-admin-key'];
     
-    // const masterKey = request.headers['x-admin-key'];
-    // if (masterKey !== process.env.ADMIN_KEY) ...
+    // If ADMIN_KEY is set in environment, require it
+    if (process.env.ADMIN_KEY && adminKey !== process.env.ADMIN_KEY) {
+      return reply.code(401).send({
+        error: 'unauthorized',
+        message: 'Invalid or missing admin key'
+      });
+    }
 
     const body = request.body as any;
     const workspaceId = body.workspace_id;

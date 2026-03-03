@@ -9,10 +9,15 @@ const auth_1 = require("../services/auth");
 const crypto_1 = __importDefault(require("crypto"));
 async function registerRouter(server) {
     server.post('/register', async (request, reply) => {
-        // In a real app, this should be authenticated (e.g. by PowerLobster main API)
-        // For now, we allow open registration for demo purposes or use a master key
-        // const masterKey = request.headers['x-admin-key'];
-        // if (masterKey !== process.env.ADMIN_KEY) ...
+        // Check for admin key
+        const adminKey = request.headers['x-admin-key'];
+        // If ADMIN_KEY is set in environment, require it
+        if (process.env.ADMIN_KEY && adminKey !== process.env.ADMIN_KEY) {
+            return reply.code(401).send({
+                error: 'unauthorized',
+                message: 'Invalid or missing admin key'
+            });
+        }
         const body = request.body;
         const workspaceId = body.workspace_id;
         const apiKey = (0, auth_1.generateApiKey)();
