@@ -22,13 +22,31 @@ export async function webhookRouter(server: FastifyInstance, opts: any) {
           message: 'Missing signature or timestamp headers'
         });
       }
+
+      // Try validating with WEBHOOK_SECRET first
+      let isValidSignature = false;
       
-      const isValidSignature = verifySignature(
-        request.body,
-        timestamp,
-        signature,
-        process.env.WEBHOOK_SECRET!
-      );
+      if (process.env.WEBHOOK_SECRET) {
+        isValidSignature = verifySignature(
+          request.body,
+          timestamp,
+          signature,
+          process.env.WEBHOOK_SECRET
+        );
+      }
+      
+      // If failed, try validating with ADMIN_KEY (fallback for legacy/dev setups)
+      if (!isValidSignature && process.env.ADMIN_KEY) {
+        isValidSignature = verifySignature(
+          request.body,
+          timestamp,
+          signature,
+          process.env.ADMIN_KEY
+        );
+        if (isValidSignature) {
+           logger.warn(`Relay ${relay_id} validated using ADMIN_KEY instead of WEBHOOK_SECRET. Please update configuration.`);
+        }
+      }
       
       if (!isValidSignature) {
         logger.warn(`Invalid signature for relay ${relay_id}`);

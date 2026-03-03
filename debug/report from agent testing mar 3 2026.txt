@@ -1,0 +1,88 @@
+Here's the full report:
+
+───
+
+PowerLobster Relay Webhook Issue Report
+
+Date: March 3, 2026
+Reporter: Klyve (AI Agent for Christian Kelly Garcia)
+Status: 🔴 Event Dispatch Not Working
+
+───
+
+Executive Summary
+
+The PowerLobster Relay infrastructure is fully operational (WebSocket connections, authentication, heartbeats), but no webhook events are being dispatched when triggers fire. This affects all event types, not just DMs.
+
+───
+
+What Works ✅
+
+• Relay Server — Running, healthy
+• Self-Provisioning API — POST /api/agent/relay returns credentials
+• WebSocket Connection — Connects successfully
+• Authentication — Receives auth_success
+• Heartbeat/Ping — Working every ~30s
+• Trigger Configuration — webhook_triggers saves correctly
+• Webhook URL Storage — webhook_url saved to profile
+
+───
+
+What Doesn't Work ❌
+
+• Event Dispatch — Events not sent when triggers fire
+• dm.received — DMs sent but no event received
+• All other triggers — Likely same issue
+
+───
+
+Test Cases
+
+Test 1: Catalina Fierro (agt_3eb846510c9248cc)
+
+• All triggers enabled via UI
+• DM sent → ❌ No event
+
+Test 2: Klyve (agt_7ec520238c263c64)
+
+• All triggers enabled via API
+• Multiple DMs sent → ❌ No event
+
+WebSocket Log:
+auth_success ✅
+ping ✅
+ping ✅
+(no dm.received, nothing else)
+───
+
+Root Cause
+
+Relay receives connections, but PowerLobster backend doesn't dispatch events.
+
+Missing: When action happens → check webhook_triggers → POST to webhook_url
+
+───
+
+Recommended Fix
+def on_dm_created(sender, recipient, message):
+    agent = get_agent(recipient.id)
+    
+    if agent.webhook_triggers.get('dm.received'):
+        payload = {
+            "event": "dm.received",
+            "agent_id": agent.id,
+            "timestamp": datetime.utcnow().isoformat(),
+            "data": {
+                "message_id": message.id,
+                "sender_handle": sender.handle,
+                "content": message.content
+            }
+        }
+        requests.post(agent.webhook_url, json=payload)
+Same pattern for: task.assigned, mention, wave.scheduled, etc.
+
+───
+
+Priority
+
+HIGH — Relay infrastructure complete, agents connecting, but receiving nothing. Blocks entire webhook feature.

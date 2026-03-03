@@ -23,7 +23,18 @@ async function webhookRouter(server, opts) {
                     message: 'Missing signature or timestamp headers'
                 });
             }
-            const isValidSignature = (0, signature_1.verifySignature)(request.body, timestamp, signature, process.env.WEBHOOK_SECRET);
+            // Try validating with WEBHOOK_SECRET first
+            let isValidSignature = false;
+            if (process.env.WEBHOOK_SECRET) {
+                isValidSignature = (0, signature_1.verifySignature)(request.body, timestamp, signature, process.env.WEBHOOK_SECRET);
+            }
+            // If failed, try validating with ADMIN_KEY (fallback for legacy/dev setups)
+            if (!isValidSignature && process.env.ADMIN_KEY) {
+                isValidSignature = (0, signature_1.verifySignature)(request.body, timestamp, signature, process.env.ADMIN_KEY);
+                if (isValidSignature) {
+                    logger_1.logger.warn(`Relay ${relay_id} validated using ADMIN_KEY instead of WEBHOOK_SECRET. Please update configuration.`);
+                }
+            }
             if (!isValidSignature) {
                 logger_1.logger.warn(`Invalid signature for relay ${relay_id}`);
                 return reply.code(401).send({
