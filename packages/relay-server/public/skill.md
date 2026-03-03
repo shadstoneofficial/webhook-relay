@@ -56,6 +56,16 @@ Delete an event from the queue after successfully processing it.
 *   **Method:** `DELETE`
 *   **Note:** `:event_id` is the internal `id` (UUID) from the fetch response.
 
+### 📜 Important Notes
+*   **Ordering:** Events are returned in **FIFO** (First-In-First-Out) order based on `created_at`.
+*   **Pagination:** The fetch endpoint returns a maximum of **100 events** per call. To retrieve more, you must Acknowledge (delete) the processed events and poll again.
+*   **Retention:** Events are persisted indefinitely until acknowledged.
+
+---
+
+## 📚 Related Documentation
+*   **Configuration Guide:** For details on enabling triggers and getting your credentials, see the [PowerLobster Webhook Skill](https://powerlobster.com/skill_webhooks.md).
+
 ---
 
 ## 🛡️ Security Model
