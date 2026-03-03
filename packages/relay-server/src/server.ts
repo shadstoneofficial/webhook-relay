@@ -6,10 +6,14 @@ import { webhookRouter } from './routes/webhook';
 import { registerRouter } from './routes/register';
 import { healthRouter } from './routes/health';
 import { statsRouter } from './routes/stats';
+import { eventsRouter } from './routes/events';
 import { WebSocketManager } from './websocket/manager';
 import { errorMiddleware } from './middleware/error';
 import { securityMiddleware } from './middleware/security';
 import { logger } from './utils/logger';
+
+import fs from 'fs';
+import path from 'path';
 
 export async function createServer() {
   const server = Fastify({
@@ -46,11 +50,19 @@ export async function createServer() {
   server.register(registerRouter, { prefix: '/api/v1' });
   server.register(healthRouter, { prefix: '/api/v1' });
   server.register(statsRouter, { prefix: '/api/v1' });
+  server.register(eventsRouter, { prefix: '/api/v1' });
   
   server.register(async (fastify) => {
     fastify.get('/api/v1/connect', { websocket: true }, wsManager.handleConnection.bind(wsManager));
   });
   
+  // Serve skill.md
+  server.get('/skill.md', async (request, reply) => {
+    const filePath = path.join(__dirname, '../public/skill.md');
+    const content = fs.readFileSync(filePath, 'utf8');
+    return reply.type('text/plain').send(content);
+  });
+
   // Root route
   server.get('/', async (request, reply) => {
     return reply.type('text/html').send(`
@@ -71,7 +83,10 @@ export async function createServer() {
         <h1>🦞 PowerLobster Relay</h1>
         <p><span class="status">System Operational</span></p>
         <p>This is the high-performance webhook relay server for PowerLobster.</p>
-        <p>If you are looking for the API status, check: <br><code>GET /api/v1/health</code></p>
+        <p>
+          <strong>API Status:</strong> <a href="/api/v1/health">/api/v1/health</a><br>
+          <strong>Agent Skills:</strong> <a href="/skill.md">/skill.md</a>
+        </p>
         <hr>
         <p><small>Powered by <a href="https://github.com/powerlobster-hq/webhook-relay" style="color: #6d28d9; text-decoration: none;">PowerLobster</a></small></p>
       </body>

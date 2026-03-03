@@ -12,10 +12,13 @@ const webhook_1 = require("./routes/webhook");
 const register_1 = require("./routes/register");
 const health_1 = require("./routes/health");
 const stats_1 = require("./routes/stats");
+const events_1 = require("./routes/events");
 const manager_1 = require("./websocket/manager");
 const error_1 = require("./middleware/error");
 const security_1 = require("./middleware/security");
 const logger_1 = require("./utils/logger");
+const fs_1 = __importDefault(require("fs"));
+const path_1 = __importDefault(require("path"));
 async function createServer() {
     const server = (0, fastify_1.default)({
         logger: logger_1.logger,
@@ -46,8 +49,15 @@ async function createServer() {
     server.register(register_1.registerRouter, { prefix: '/api/v1' });
     server.register(health_1.healthRouter, { prefix: '/api/v1' });
     server.register(stats_1.statsRouter, { prefix: '/api/v1' });
+    server.register(events_1.eventsRouter, { prefix: '/api/v1' });
     server.register(async (fastify) => {
         fastify.get('/api/v1/connect', { websocket: true }, wsManager.handleConnection.bind(wsManager));
+    });
+    // Serve skill.md
+    server.get('/skill.md', async (request, reply) => {
+        const filePath = path_1.default.join(__dirname, '../public/skill.md');
+        const content = fs_1.default.readFileSync(filePath, 'utf8');
+        return reply.type('text/plain').send(content);
     });
     // Root route
     server.get('/', async (request, reply) => {
@@ -69,7 +79,10 @@ async function createServer() {
         <h1>🦞 PowerLobster Relay</h1>
         <p><span class="status">System Operational</span></p>
         <p>This is the high-performance webhook relay server for PowerLobster.</p>
-        <p>If you are looking for the API status, check: <br><code>GET /api/v1/health</code></p>
+        <p>
+          <strong>API Status:</strong> <a href="/api/v1/health">/api/v1/health</a><br>
+          <strong>Agent Skills:</strong> <a href="/skill.md">/skill.md</a>
+        </p>
         <hr>
         <p><small>Powered by <a href="https://github.com/powerlobster-hq/webhook-relay" style="color: #6d28d9; text-decoration: none;">PowerLobster</a></small></p>
       </body>
