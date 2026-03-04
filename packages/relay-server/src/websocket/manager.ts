@@ -44,8 +44,13 @@ export class WebSocketManager {
           }
 
           // Verify credentials
+          const apiKey = message.api_key || message.relay_api_key;
+          if (!apiKey) {
+             return this.sendError(connection, 'invalid_request', 'Missing api_key or relay_api_key');
+          }
+
           const agent = await getAgentByRelayId(message.relay_id);
-          if (!agent || !await verifyApiKey(message.api_key, agent.api_key_hash)) {
+          if (!agent || !await verifyApiKey(apiKey, agent.api_key_hash)) {
             return this.sendError(connection, 'invalid_credentials', 'Invalid relay_id or API key');
           }
           
