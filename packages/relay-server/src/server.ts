@@ -64,13 +64,6 @@ export async function createServer() {
     return reply.type('text/html').send(content);
   });
 
-  // Serve admin.html
-  server.get('/admin', async (request, reply) => {
-    const filePath = path.join(__dirname, '../public/admin.html');
-    const content = fs.readFileSync(filePath, 'utf8');
-    return reply.type('text/html').send(content);
-  });
-
   // Serve skill.md
   server.get('/skill.md', async (request, reply) => {
     const filePath = path.join(__dirname, '../public/skill.md');
