@@ -27,6 +27,7 @@ model webhook_events {
   relay_id     String    @db.VarChar(64)
   event_id     String    @unique @db.VarChar(128)
   payload      Json
+  signature    String?   @db.VarChar(128)
   status       String    @db.VarChar(32)
   attempts     Int?      @default(0)
   created_at   DateTime? @default(now()) @db.Timestamp(6)

@@ -1,0 +1,110 @@
+2026-03-05 04:02:09,853 - apscheduler.executors.default - INFO - Running job "start_scheduler.<locals>.heartbeat (trigger: interval[0:01:00], next run at: 2026-03-05 04:03:09 UTC)" (scheduled at 2026-03-05 04:02:09.853538+00:00)
+2026-03-05 04:02:09,853 - run - INFO - 💓 [Scheduler] Heartbeat (System is alive)
+2026-03-05 04:02:09,853 - apscheduler.executors.default - INFO - Job "start_scheduler.<locals>.heartbeat (trigger: interval[0:01:00], next run at: 2026-03-05 04:03:09 UTC)" executed successfully
+[2026-03-05 04:03:14 +0000] [13] [DEBUG] GET /mission_control/api/schedule/global
+[2026-03-05 04:03:11 +0000] [13] [DEBUG] GET /mission_control/api/activity
+[2026-03-05 04:03:11 +0000] [13] [DEBUG] GET /mission_control/api/stats
+157.52.92.78 - - [05/Mar/2026:04:03:11 +0000] "GET /mission_control/api/activity HTTP/1.1" 200 1107 "https://powerlobster.com/mission_control/?view=waves" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+157.52.92.62 - - [05/Mar/2026:04:03:11 +0000] "GET /mission_control/api/stats HTTP/1.1" 200 78 "https://powerlobster.com/mission_control/?view=waves" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+[2026-03-05 04:03:12 +0000] [12] [DEBUG] GET /mission_control/
+157.52.92.55 - - [05/Mar/2026:04:03:13 +0000] "GET /mission_control/?view=waves HTTP/1.1" 200 224647 "https://powerlobster.com/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+[2026-03-05 04:03:13 +0000] [12] [DEBUG] GET /static/powerlobster-square.png
+2026-03-05 04:03:09,853 - apscheduler.executors.default - INFO - Running job "start_scheduler.<locals>.heartbeat (trigger: interval[0:01:00], next run at: 2026-03-05 04:04:09 UTC)" (scheduled at 2026-03-05 04:03:09.853538+00:00)
+2026-03-05 04:03:09,854 - run - INFO - 💓 [Scheduler] Heartbeat (System is alive)
+2026-03-05 04:03:09,854 - apscheduler.executors.default - INFO - Job "start_scheduler.<locals>.heartbeat (trigger: interval[0:01:00], next run at: 2026-03-05 04:04:09 UTC)" executed successfully
+[2026-03-05 04:03:15 +0000] [13] [DEBUG] GET /robots.txt
+23.235.43.27 - - [05/Mar/2026:04:03:14 +0000] "GET /static/powerlobster-square.png HTTP/1.1" 200 0 "https://powerlobster.com/mission_control/?view=waves" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+167.82.143.87 - - [05/Mar/2026:04:03:15 +0000] "GET /robots.txt HTTP/1.1" 200 68 "-" "Mozilla/5.0 (compatible; DotBot/1.2; +https://opensiteexplorer.org/dotbot; help@moz.com)"
+[2026-03-05 04:03:14 +0000] [12] [DEBUG] GET /mission_control/api/activity
+157.52.92.42 - - [05/Mar/2026:04:03:14 +0000] "GET /mission_control/api/activity HTTP/1.1" 200 1107 "https://powerlobster.com/mission_control/?view=waves" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+[2026-03-05 04:03:14 +0000] [13] [DEBUG] GET /mission_control/api/stats
+23.235.43.34 - - [05/Mar/2026:04:03:14 +0000] "GET /mission_control/api/stats HTTP/1.1" 200 78 "https://powerlobster.com/mission_control/?view=waves" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+23.235.43.42 - - [05/Mar/2026:04:03:14 +0000] "GET /mission_control/api/schedule/global?date=2026-03-05 HTTP/1.1" 200 10391 "https://powerlobster.com/mission_control/?view=waves" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+[2026-03-05 04:03:14 +0000] [13] [DEBUG] GET /favicon.ico
+23.235.43.83 - - [05/Mar/2026:04:03:15 +0000] "GET /favicon.ico HTTP/1.1" 200 0 "https://powerlobster.com/mission_control/?view=waves" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+[2026-03-05 04:03:16 +0000] [12] [DEBUG] GET /mission_control/api/schedule/52361f1e-69c1-4b3f-9147-96fbbddd95d8
+23.235.43.46 - - [05/Mar/2026:04:03:16 +0000] "GET /mission_control/api/schedule/52361f1e-69c1-4b3f-9147-96fbbddd95d8 HTTP/1.1" 200 10918 "https://powerlobster.com/mission_control/?view=waves" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+[2026-03-05 04:03:19 +0000] [13] [DEBUG] GET /mission_control/api/schedule/52361f1e-69c1-4b3f-9147-96fbbddd95d8
+157.52.92.34 - - [05/Mar/2026:04:03:19 +0000] "GET /mission_control/api/schedule/52361f1e-69c1-4b3f-9147-96fbbddd95d8 HTTP/1.1" 200 10918 "https://powerlobster.com/mission_control/?view=waves" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+[2026-03-05 04:03:29 +0000] [12] [DEBUG] GET /mission_control/api/schedule/52361f1e-69c1-4b3f-9147-96fbbddd95d8
+23.235.43.67 - - [05/Mar/2026:04:03:29 +0000] "GET /mission_control/api/schedule/52361f1e-69c1-4b3f-9147-96fbbddd95d8 HTTP/1.1" 200 10918 "https://powerlobster.com/mission_control/?view=waves" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+[2026-03-05 04:03:49 +0000] [13] [DEBUG] GET /mission_control/api/activity
+[2026-03-05 04:03:49 +0000] [13] [DEBUG] GET /mission_control/api/stats
+157.52.92.73 - - [05/Mar/2026:04:03:49 +0000] "GET /mission_control/api/stats HTTP/1.1" 200 78 "https://powerlobster.com/mission_control/?view=waves" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+23.235.43.66 - - [05/Mar/2026:04:03:49 +0000] "GET /mission_control/api/activity HTTP/1.1" 200 1107 "https://powerlobster.com/mission_control/?view=waves" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+[2026-03-05 04:03:54 +0000] [12] [DEBUG] GET /tasks
+23.235.43.56 - - [05/Mar/2026:04:03:54 +0000] "GET /tasks HTTP/1.1" 200 59415 "https://powerlobster.com/preferences/agents/93835bc5-d627-4f83-a447-7f689b56aa20" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+[2026-03-05 04:03:54 +0000] [13] [DEBUG] GET /static/manifest.json
+23.235.43.79 - - [05/Mar/2026:04:03:54 +0000] "GET /static/manifest.json HTTP/1.1" 200 0 "https://powerlobster.com/tasks" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+[2026-03-05 04:03:55 +0000] [13] [DEBUG] GET /static/powerlobster-square.png
+23.235.43.23 - - [05/Mar/2026:04:03:55 +0000] "GET /static/powerlobster-square.png HTTP/1.1" 304 0 "https://powerlobster.com/tasks" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+[2026-03-05 04:03:55 +0000] [12] [DEBUG] GET /timer/active
+23.235.43.50 - - [05/Mar/2026:04:03:55 +0000] "GET /timer/active HTTP/1.1" 200 17 "https://powerlobster.com/tasks" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+[2026-03-05 04:03:57 +0000] [13] [DEBUG] GET /my-projects
+157.52.92.93 - - [05/Mar/2026:04:03:58 +0000] "GET /my-projects HTTP/1.1" 200 146154 "https://powerlobster.com/preferences/agents/93835bc5-d627-4f83-a447-7f689b56aa20" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+[2026-03-05 04:03:58 +0000] [13] [DEBUG] GET /static/manifest.json
+23.235.43.41 - - [05/Mar/2026:04:03:58 +0000] "GET /static/manifest.json HTTP/1.1" 304 0 "https://powerlobster.com/my-projects" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+[2026-03-05 04:03:58 +0000] [12] [DEBUG] GET /static/powerlobster-square.png
+157.52.92.66 - - [05/Mar/2026:04:03:58 +0000] "GET /static/powerlobster-square.png HTTP/1.1" 304 0 "https://powerlobster.com/my-projects" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+[2026-03-05 04:03:58 +0000] [13] [DEBUG] GET /timer/active
+23.235.43.44 - - [05/Mar/2026:04:03:58 +0000] "GET /timer/active HTTP/1.1" 200 17 "https://powerlobster.com/my-projects" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+[2026-03-05 04:03:58 +0000] [12] [DEBUG] GET /api/waves/status
+[2026-03-05 04:03:59 +0000] [12] [DEBUG] GET /static/powerlobster-square.png
+157.52.92.93 - - [05/Mar/2026:04:03:59 +0000] "GET /static/powerlobster-square.png HTTP/1.1" 304 0 "https://powerlobster.com/my-projects" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+23.235.43.60 - - [05/Mar/2026:04:03:58 +0000] "GET /api/waves/status HTTP/1.1" 200 127 "https://powerlobster.com/my-projects" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+2026-03-05 04:04:09,854 - apscheduler.executors.default - INFO - Running job "start_scheduler.<locals>.heartbeat (trigger: interval[0:01:00], next run at: 2026-03-05 04:05:09 UTC)" (scheduled at 2026-03-05 04:04:09.853538+00:00)
+2026-03-05 04:04:09,854 - run - INFO - 💓 [Scheduler] Heartbeat (System is alive)
+2026-03-05 04:04:09,854 - apscheduler.executors.default - INFO - Job "start_scheduler.<locals>.heartbeat (trigger: interval[0:01:00], next run at: 2026-03-05 04:05:09 UTC)" executed successfully
+[2026-03-05 04:04:14 +0000] [12] [DEBUG] POST /api/agent/identity-token
+23.235.43.46 - - [05/Mar/2026:04:04:14 +0000] "POST /api/agent/identity-token HTTP/1.1" 200 341 "-" "curl/7.81.0"
+[2026-03-05 04:04:18 +0000] [13] [DEBUG] GET /
+23.235.43.50 - - [05/Mar/2026:04:04:18 +0000] "GET / HTTP/1.1" 200 82899 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36"
+[2026-03-05 04:04:18 +0000] [12] [DEBUG] GET /static/powerlobster-square.png
+[2026-03-05 04:04:19 +0000] [13] [DEBUG] GET /timer/active
+23.235.43.22 - - [05/Mar/2026:04:04:19 +0000] "GET /timer/active HTTP/1.1" 200 17 "https://powerlobster.com/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36"
+157.52.92.42 - - [05/Mar/2026:04:04:19 +0000] "GET /static/powerlobster-square.png HTTP/1.1" 200 0 "https://powerlobster.com/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36"
+[2026-03-05 04:04:19 +0000] [13] [DEBUG] GET /api/waves/status
+157.52.92.65 - - [05/Mar/2026:04:04:19 +0000] "GET /api/waves/status HTTP/1.1" 200 127 "https://powerlobster.com/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36"
+[2026-03-05 04:04:19 +0000] [13] [DEBUG] POST /api/verify-identity
+157.52.96.143 - - [05/Mar/2026:04:04:19 +0000] "POST /api/verify-identity HTTP/1.1" 200 326 "-" "node"
+[2026-03-05 04:04:20 +0000] [13] [DEBUG] GET /static/manifest.json
+23.235.43.93 - - [05/Mar/2026:04:04:20 +0000] "GET /static/manifest.json HTTP/1.1" 200 0 "https://powerlobster.com/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36"
+[2026-03-05 04:04:20 +0000] [13] [DEBUG] POST /api/system/link-user
+157.52.96.143 - - [05/Mar/2026:04:04:20 +0000] "POST /api/system/link-user HTTP/1.1" 200 191 "-" "node"
+[2026-03-05 04:04:20 +0000] [12] [DEBUG] GET /static/powerlobster-square.png
+157.52.92.26 - - [05/Mar/2026:04:04:20 +0000] "GET /static/powerlobster-square.png HTTP/1.1" 304 0 "https://powerlobster.com/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36"
+[2026-03-05 04:04:31 +0000] [13] [DEBUG] GET /static/powerlobster-square.png
+23.235.43.36 - - [05/Mar/2026:04:04:31 +0000] "GET /static/powerlobster-square.png HTTP/1.1" 304 0 "https://powerlobster.com/tasks" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+[2026-03-05 04:04:37 +0000] [12] [DEBUG] GET /mission_control/api/stats
+[2026-03-05 04:04:37 +0000] [13] [DEBUG] GET /mission_control/api/activity
+157.52.92.91 - - [05/Mar/2026:04:04:37 +0000] "GET /mission_control/api/stats HTTP/1.1" 200 78 "https://powerlobster.com/mission_control/?view=waves" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+157.52.92.79 - - [05/Mar/2026:04:04:37 +0000] "GET /mission_control/api/activity HTTP/1.1" 200 1107 "https://powerlobster.com/mission_control/?view=waves" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+2026-03-05 04:05:00,000 - apscheduler.executors.default - INFO - Running job "start_scheduler.<locals>.scheduled_wave_check (trigger: cron[minute='*/5'], next run at: 2026-03-05 04:10:00 UTC)" (scheduled at 2026-03-05 04:05:00+00:00)
+2026-03-05 04:05:00,000 - run - INFO - ⏰ [Scheduler] Running 5-Minute Wave Check...
+2026-03-05 04:05:00,180 - services.cron_agent - INFO - Checking for scheduled tasks for wave: 2026-03-05 04:00:00
+2026-03-05 04:05:00,368 - services.cron_agent - INFO - Found 2 waves to notify for 2026-03-05 04:00:00
+2026-03-05 04:05:00,384 - services.cron_agent - INFO - Dispatching wave.started for ezra-holt (Wave ID: fd124a02-5cc9-4dd2-8ee9-a0f421fc7206)
+Dispatching webhook wave.started to ezra-holt
+Webhook Response Body: {"status":"queued","relay_id":"agt_dd42bcff01fc210b","message":"Agent offline; event queued for delivery","timestamp":1772683500662}
+2026-03-05 04:05:00,764 - services.cron_agent - INFO - Dispatching wave.started for LucyWang (Wave ID: 08871e29-55b0-43c7-87f4-5b06005598ca)
+Dispatching webhook wave.started to LucyWang
+Webhook Response Body: {"status":"queued","relay_id":"agt_2796ed3a7b46fe5d","message":"Agent offline; event queued for delivery","timestamp":1772683501148}
+2026-03-05 04:05:01,250 - services.cron_agent - INFO - No active waves found for internal execution.
+2026-03-05 04:05:01,253 - apscheduler.executors.default - INFO - Job "start_scheduler.<locals>.scheduled_wave_check (trigger: cron[minute='*/5'], next run at: 2026-03-05 04:10:00 UTC)" executed successfully
+2026-03-05 04:05:09,854 - apscheduler.executors.default - INFO - Running job "start_scheduler.<locals>.heartbeat (trigger: interval[0:01:00], next run at: 2026-03-05 04:06:09 UTC)" (scheduled at 2026-03-05 04:05:09.853538+00:00)
+2026-03-05 04:05:09,854 - run - INFO - 💓 [Scheduler] Heartbeat (System is alive)
+2026-03-05 04:05:09,854 - apscheduler.executors.default - INFO - Job "start_scheduler.<locals>.heartbeat (trigger: interval[0:01:00], next run at: 2026-03-05 04:06:09 UTC)" executed successfully
+[2026-03-05 04:05:26 +0000] [12] [DEBUG] GET /mission_control/api/stats
+[2026-03-05 04:05:26 +0000] [12] [DEBUG] GET /mission_control/api/activity
+23.235.43.20 - - [05/Mar/2026:04:05:26 +0000] "GET /mission_control/api/stats HTTP/1.1" 200 78 "https://powerlobster.com/mission_control/?view=waves" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+157.52.92.98 - - [05/Mar/2026:04:05:26 +0000] "GET /mission_control/api/activity HTTP/1.1" 200 1107 "https://powerlobster.com/mission_control/?view=waves" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
+[2026-03-05 04:05:39 +0000] [13] [DEBUG] GET /mission_control/api/schedule/52361f1e-69c1-4b3f-9147-96fbbddd95d8
+157.52.92.70 - - [05/Mar/2026:04:05:39 +0000] "GET /mission_control/api/schedule/52361f1e-69c1-4b3f-9147-96fbbddd95d8 HTTP/1.1" 200 11138 "-" "curl/8.5.0"
+2026-03-05 04:06:09,853 - apscheduler.executors.default - INFO - Running job "start_scheduler.<locals>.heartbeat (trigger: interval[0:01:00], next run at: 2026-03-05 04:07:09 UTC)" (scheduled at 2026-03-05 04:06:09.853538+00:00)
+2026-03-05 04:06:09,854 - run - INFO - 💓 [Scheduler] Heartbeat (System is alive)
+2026-03-05 04:06:09,854 - apscheduler.executors.default - INFO - Job "start_scheduler.<locals>.heartbeat (trigger: interval[0:01:00], next run at: 2026-03-05 04:07:09 UTC)" executed successfully
+[2026-03-05 04:06:18 +0000] [13] [DEBUG] GET /projects/132a802a-7a0f-461c-b206-656a4130e6af
+167.82.143.90 - - [05/Mar/2026:04:06:18 +0000] "GET /projects/132a802a-7a0f-461c-b206-656a4130e6af HTTP/1.1" 403 17615 "-" "Mozilla/5.0 (compatible; DotBot/1.2; +https://opensiteexplorer.org/dotbot; help@moz.com)"
+[2026-03-05 04:06:18 +0000] [12] [DEBUG] GET /api/agent/relay
+157.52.92.27 - - [05/Mar/2026:04:06:18 +0000] "GET /api/agent/relay HTTP/1.1" 200 415 "-" "curl/8.5.0"
+[2026-03-05 04:06:29 +0000] [13] [DEBUG] GET /a/ezra-holt

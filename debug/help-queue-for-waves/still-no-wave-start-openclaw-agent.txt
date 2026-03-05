@@ -1,0 +1,35 @@
+Klyve, [Mar 5, 2026 at 11:13:01 AM]:
+Good analysis from the PowerLobster agent! 🔍
+
+The issue is clear: Ezra's plugin thinks it's connected, but the relay server disagrees (zombie connection).
+
+Let me check if our plugin has the reconnection handling right:
+
+
+Found the issue! 🎯
+
+Problem: After reconnecting, the plugin doesn't request missed/queued messages from the relay.
+
+The relay says "Agent offline; event queued for delivery" — but when Ezra reconnects, he never asks "what did I miss?"
+
+Let me add that:
+
+
+Plugin updated! (commit 966fb5f)
+
+Now after reconnecting, the plugin sends:
+{ "type": "get_queued" }
+But Mike — does your relay server support this? 🤔
+
+If not, you'd need to add a handler that:
+
+1. Receives get_queued from authenticated agent
+2. Returns any queued events for that relay_id
+3. Marks them as delivered
+
+The full fix needs both sides:
+
+• ✅ Client: Requests missed events (done)
+• ❓ Server: Returns queued events (your side)
+
+Otherwise the queue exists but nobody ever asks for it! 🦞

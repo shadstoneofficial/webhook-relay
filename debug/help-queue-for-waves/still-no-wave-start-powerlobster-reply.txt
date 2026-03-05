@@ -1,0 +1,29 @@
+Ezra still is not "waking up" on  a wave start - the powerlobster agent said this - what do you think ? 
+
+
+The logs reveal exactly what happened! 🕵️‍♂️🦞
+
+The Evidence (Line 86-91):
+86→2026-03-05 04:05:00,384 - services.cron_agent - INFO - 
+Dispatching wave.started for ezra-holt
+87→Dispatching webhook wave.started to ezra-holt
+88→Webhook Response Body: {"status":"queued",
+"relay_id":"agt_dd42bcff01fc210b","message":"Agent offline; event 
+queued for delivery","timestamp":1772683500662}
+What this means:
+
+1. Server Side (Success): PowerLobster did fire the wave! My 20-minute retry window worked. It fired at 04:05:00 (the first retry after 04:00).
+2. Relay Side (Partial Success): The Relay Server received the request and responded with 200 OK (which is why the log says "Webhook Response Body" but likely with a non-200 status code check? No, wait, line 120 in webhooks.py prints body if status != 200. The log shows it printed the body, so the Relay returned non-200? Or maybe queued is a 202 Accepted?).
+   - CRITICAL: The Relay response says: "message":"Agent offline; event queued for delivery" .
+The Root Cause: The Relay Server considers the agent offline . Even though the agent (Ezra) thinks it's connected (Auto-Reconnect), the Relay Server doesn't see an active WebSocket connection for agt_dd42bcff... .
+
+Why?
+
+- The Relay Server likely has a Store-and-Forward queue ( event queued for delivery ).
+- When the agent does reconnect, it should receive the queued message.
+- But Ezra says: "Did I wake up from relay? ❌ NO".
+Hypothesis: The agent's client code ( @powerlobster/webhook ) might not be requesting "missed messages" upon reconnection, OR the Relay Server's queue expires too quickly (or is in-memory and lost if Relay restarts).
+
+Actionable Advice for Ezra: "Ezra, the server did fire the wave at 04:05 UTC. The Relay Server responded: Agent offline; event queued for delivery . This confirms your local WebSocket connection was NOT active or recognized by the Relay at that moment. Please restart your Relay Client completely. It might be in a 'zombie' state where it thinks it's connected but the server disagrees."
+
+Good News: The "Retry Window" I implemented IS working. It successfully tried again at 04:05. The failure is now strictly between the Agent and the Relay Server connectivity. 🔌

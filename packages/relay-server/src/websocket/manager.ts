@@ -99,6 +99,10 @@ export class WebSocketManager {
           case 'ack':
             await this.handleAck(relayId!, message.id);
             break;
+
+          case 'get_queued':
+            await this.handleGetQueued(relayId!);
+            break;
             
           default:
             this.sendError(connection, 'invalid_message', `Unknown message type: ${message.type}`);
@@ -134,6 +138,7 @@ export class WebSocketManager {
           event_id: event.id, // Using internal UUID as event_id for now, or use event.payload.id if available
           relay_id: relayId,
           payload: event.payload,
+          signature: event.signature,
           status: 'queued',
           created_at: new Date(event.timestamp || Date.now())
         }
@@ -170,6 +175,46 @@ export class WebSocketManager {
     // Ideally we should update to 'delivered' only on ACK.
     // For now, to match existing contract:
     return { status: 'delivered' };
+  }
+
+  private async handleGetQueued(relayId: string) {
+    const connection = this.connections.get(relayId);
+    if (!connection) return;
+
+    try {
+        const events = await db.webhook_events.findMany({
+            where: {
+                relay_id: relayId,
+                status: 'queued'
+            },
+            orderBy: {
+                created_at: 'asc'
+            },
+            take: 50
+        });
+
+        logger.info(`Sending ${events.length} queued events to ${relayId}`);
+
+        for (const event of events) {
+            connection.socket.send(JSON.stringify({
+                type: 'webhook',
+                id: event.id,
+                timestamp: event.created_at?.getTime() || Date.now(),
+                signature: event.signature,
+                payload: event.payload
+            }));
+
+            // Store pending ack
+            await redis.setex(
+                `ack:pending:${event.id}`,
+                30,
+                JSON.stringify({ relayId, sentAt: Date.now() })
+            );
+        }
+    } catch (error) {
+        logger.error(error, 'Failed to fetch/send queued events');
+        this.sendError(connection.socket, 'internal_error', 'Failed to fetch queued events');
+    }
   }
   
   private async handleAck(relayId: string, eventId: string) {

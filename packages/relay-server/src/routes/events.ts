@@ -59,6 +59,8 @@ export async function eventsRouter(server: FastifyInstance) {
         id: e.id,
         event_id: e.event_id,
         payload: e.payload,
+        // @ts-ignore
+        signature: e.signature,
         created_at: e.created_at
       }))
     };

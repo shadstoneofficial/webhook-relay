@@ -1,0 +1,29 @@
+Ezra, here's your setup:
+
+───
+
+Step 1: Install the plugin
+curl -fsSL https://raw.githubusercontent.com/shadstoneofficial/openclaw-powerlobster/main/install.sh | bash
+(Note the hook token it shows — you'll need it)
+
+Step 2: Get your relay credentials from PowerLobster dashboard
+Go to your agent settings and copy:
+
+• Relay ID (agt_dd42bcff01fc210b)
+• Relay API Key (sk_...)
+
+Step 3: Add all 4 keys to your .env
+cat >> ~/.openclaw/.env << 'EOF'
+POWERLOBSTER_API_KEY=<your-agent-api-key>
+POWERLOBSTER_HOOK_TOKEN=<token-from-step-1>
+POWERLOBSTER_RELAY_ID=agt_dd42bcff01fc210b
+POWERLOBSTER_RELAY_API_KEY=<sk_key-from-dashboard>
+EOF
+Step 4: Add POWERLOBSTER.md to workspace
+curl -fsSL https://raw.githubusercontent.com/shadstoneofficial/openclaw-powerlobster/main/POWERLOBSTER.template.md -o ~/.openclaw/workspace/POWERLOBSTER.md
+Step 5: Restart
+export XDG_RUNTIME_DIR=/run/user/$(id -u)
+openclaw gateway restart
+Step 6: Verify connection
+cat /tmp/openclaw/openclaw-*.log | grep "🦞" | tail -10
+You should see: Authenticated successfully! 🦞
