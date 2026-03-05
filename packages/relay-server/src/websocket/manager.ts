@@ -138,6 +138,7 @@ export class WebSocketManager {
           event_id: event.id, // Using internal UUID as event_id for now, or use event.payload.id if available
           relay_id: relayId,
           payload: event.payload,
+          // @ts-ignore
           signature: event.signature,
           status: 'queued',
           created_at: new Date(event.timestamp || Date.now())
@@ -200,6 +201,7 @@ export class WebSocketManager {
                 type: 'webhook',
                 id: event.id,
                 timestamp: event.created_at?.getTime() || Date.now(),
+                // @ts-ignore
                 signature: event.signature,
                 payload: event.payload
             }));
@@ -210,6 +212,9 @@ export class WebSocketManager {
                 30,
                 JSON.stringify({ relayId, sentAt: Date.now() })
             );
+
+            // Rate limit: 100ms delay between events to prevent flooding the client
+            await new Promise(resolve => setTimeout(resolve, 100));
         }
     } catch (error) {
         logger.error(error, 'Failed to fetch/send queued events');

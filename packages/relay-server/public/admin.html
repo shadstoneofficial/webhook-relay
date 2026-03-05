@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PowerLobster Relay Admin</title>
+    <style>
+        :root {
+            --primary: #6d28d9;
+            --primary-hover: #5b21b6;
+            --bg: #f9fafb;
+            --card-bg: #ffffff;
+            --text: #1f2937;
+            --border: #e5e7eb;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.5;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+        h1 { color: var(--primary); margin: 0; }
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        input, button {
+            padding: 8px 12px;
+            border-radius: 4px;
+            border: 1px solid var(--border);
+            font-size: 1rem;
+        }
+        button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover { background: var(--primary-hover); }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            text-align: left;
+            padding: 10px;
+            border-bottom: 1px solid var(--border);
+        }
+        th { background: #f3f4f6; }
+        code { background: #f3f4f6; padding: 2px 5px; border-radius: 4px; font-size: 0.9em; }
+        .badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 999px;
+            font-size: 0.8em;
+            font-weight: 500;
+        }
+        .badge-queued { background: #fef3c7; color: #92400e; }
+        .badge-delivered { background: #dcfce7; color: #166534; }
+        .hidden { display: none; }
+        #login-screen {
+            max-width: 400px;
+            margin: 100px auto;
+            text-align: center;
+        }
+        .payload-preview {
+            max-height: 100px;
+            overflow-y: auto;
+            font-size: 0.85em;
+            color: #4b5563;
+        }
+        .nav-link {
+            color: var(--primary);
+            cursor: pointer;
+            text-decoration: underline;
+            margin-right: 15px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="login-screen" class="container card">
+        <h2>🔐 Relay Logs Login</h2>
+        <p>Enter your RELAYLOG_KEY to access the dashboard.</p>
+        <input type="password" id="admin-key-input" placeholder="sk_relaylog_..." style="width: 80%;">
+        <br><br>
+        <button onclick="login()">Access Dashboard</button>
+    </div>
+
+<div id="dashboard" class="container hidden">
+    <header>
+        <h1>🦞 Relay Admin</h1>
+        <div>
+            <span class="nav-link" onclick="showAgents()">Agents</span>
+            <button onclick="logout()">Logout</button>
+        </div>
+    </header>
+
+    <div id="agents-view">
+        <div class="card">
+            <h2>Connected Agents</h2>
+            <button onclick="loadAgents()">Refresh List</button>
+            <table id="agents-table">
+                <thead>
+                    <tr>
+                        <th>Relay ID</th>
+                        <th>Type</th>
+                        <th>Last Seen</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="events-view" class="hidden">
+        <div class="card">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <h2>Events for <code id="current-relay-id">...</code></h2>
+                <button onclick="showAgents()">← Back to Agents</button>
+            </div>
+            <button onclick="loadEvents(currentRelayId)">Refresh Events</button>
+            <table id="events-table">
+                <thead>
+                    <tr>
+                        <th>Time</th>
+                        <th>Status</th>
+                        <th>Event ID</th>
+                        <th>Payload</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    const API_BASE = '/api/v1/admin';
+    let currentRelayId = '';
+
+    // Check auth on load
+    document.addEventListener('DOMContentLoaded', () => {
+        const key = localStorage.getItem('relaylog_key');
+        if (key) {
+            document.getElementById('admin-key-input').value = key;
+            showDashboard();
+            loadAgents();
+        }
+    });
+
+    function login() {
+        const key = document.getElementById('admin-key-input').value.trim();
+        if (key) {
+            localStorage.setItem('relaylog_key', key);
+            showDashboard();
+            loadAgents();
+        }
+    }
+
+    function logout() {
+        localStorage.removeItem('relaylog_key');
+        document.getElementById('login-screen').classList.remove('hidden');
+        document.getElementById('dashboard').classList.add('hidden');
+    }
+
+    function showDashboard() {
+        document.getElementById('login-screen').classList.add('hidden');
+        document.getElementById('dashboard').classList.remove('hidden');
+    }
+
+    function showAgents() {
+        document.getElementById('agents-view').classList.remove('hidden');
+        document.getElementById('events-view').classList.add('hidden');
+        loadAgents();
+    }
+
+    async function showEvents(relayId) {
+        currentRelayId = relayId;
+        const relayElement = document.getElementById('current-relay-id');
+        if (relayElement) {
+            relayElement.textContent = relayId;
+        }
+        document.getElementById('agents-view').classList.add('hidden');
+        document.getElementById('events-view').classList.remove('hidden');
+        await loadEvents(relayId);
+    }
+
+    async function fetchAPI(endpoint) {
+        const key = localStorage.getItem('relaylog_key');
+        try {
+            const res = await fetch(API_BASE + endpoint, {
+                headers: { 'x-relaylog-key': key }
+            });
+            if (res.status === 401) {
+                alert('Invalid Relay Log Key');
+                logout();
+                return null;
+            }
+            return await res.json();
+        } catch (e) {
+            console.error(e);
+            alert('Error fetching data');
+            return null;
+        }
+    }
+
+    async function loadAgents() {
+        const data = await fetchAPI('/agents');
+        if (!data || !data.agents) return;
+
+        const tbody = document.querySelector('#agents-table tbody');
+        if (!tbody) return;
+        tbody.innerHTML = '';
+        
+        data.agents.forEach(agent => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td><code>${agent.relay_id}</code></td>
+                <td>${agent.connection_type}</td>
+                <td>${agent.last_seen_at ? new Date(agent.last_seen_at).toLocaleString() : 'Never'}</td>
+                <td>
+                    <button onclick="showEvents('${agent.relay_id}')">View Events</button>
+                </td>
+            `;
+            tbody.appendChild(tr);
+        });
+    }
+
+    async function loadEvents(relayId) {
+        const data = await fetchAPI(`/events/${relayId}`);
+        if (!data || !data.events) return;
+
+        const tbody = document.querySelector('#events-table tbody');
+        if (!tbody) return;
+        tbody.innerHTML = '';
+
+        if (data.events.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;">No recent events found.</td></tr>';
+            return;
+        }
+
+        data.events.forEach(event => {
+            const tr = document.createElement('tr');
+            // Check status for styling
+            const statusClass = event.status === 'queued' ? 'badge-queued' : 'badge-delivered';
+            
+            tr.innerHTML = `
+                <td>${new Date(event.created_at).toLocaleString()}</td>
+                <td><span class="badge ${statusClass}" style="${event.status === 'queued' ? 'background:#fef3c7;color:#92400e' : 'background:#dcfce7;color:#166534'} padding:2px 8px;border-radius:99px;">${event.status}</span></td>
+                <td><code>${event.event_id}</code></td>
+                <td>
+                    <div class="payload-preview" style="max-height:100px;overflow:auto;background:#f3f4f6;padding:5px;">
+                        <pre style="margin:0;font-size:0.8em;">${JSON.stringify(event.payload, null, 2)}</pre>
+                    </div>
+                </td>
+            `;
+            tbody.appendChild(tr);
+        });
+    }
+</script>
+
+</body>
+</html>
