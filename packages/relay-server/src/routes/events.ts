@@ -40,6 +40,21 @@ export async function eventsRouter(server: FastifyInstance) {
 
     // 3. Optional: Auto-Ack if requested via query param ?ack=true
     const { ack } = request.query as { ack?: string };
+
+    // Log the polling event
+    try {
+      // @ts-ignore
+      await db.relay_logs.create({
+        data: {
+          relay_id: relay_id,
+          level: 'info',
+          event: 'http_poll',
+          message: `Agent polled for pending events. Found: ${events.length}`,
+          data: { count: events.length, ack_requested: ack === 'true', ip: request.ip }
+        }
+      });
+    } catch (e) { console.error('Failed to log relay event', e); }
+
     if (ack === 'true' && events.length > 0) {
       const eventIds = events.map(e => e.id);
       await db.webhook_events.updateMany({
@@ -105,6 +120,21 @@ export async function eventsRouter(server: FastifyInstance) {
         delivered_at: new Date()
       }
     });
+
+    if (result.count > 0) {
+      try {
+        // @ts-ignore
+        await db.relay_logs.create({
+          data: {
+            relay_id: relay_id,
+            level: 'info',
+            event: 'http_ack',
+            message: `Agent acknowledged event ${event_id}`,
+            data: { event_id, ip: request.ip }
+          }
+        });
+      } catch (e) { console.error('Failed to log relay event', e); }
+    }
 
     if (result.count === 0) {
       return reply.code(404).send({ error: 'not_found', message: 'Event not found or already delivered' });
