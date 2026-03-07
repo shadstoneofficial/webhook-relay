@@ -26,4 +26,15 @@ export async function adminRouter(server: FastifyInstance) {
     });
     return { count: events.length, events };
   });
+
+  server.get('/logs/:relay_id', async (request, reply) => {
+    const { relay_id } = request.params as { relay_id: string };
+    // @ts-ignore
+    const logs = await db.relay_logs.findMany({
+      where: { relay_id },
+      orderBy: { created_at: 'desc' },
+      take: 50
+    });
+    return { count: logs.length, logs };
+  });
 }

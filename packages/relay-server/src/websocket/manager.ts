@@ -25,6 +25,23 @@ export class WebSocketManager {
     this.heartbeatInterval = setInterval(() => this.sendHeartbeats(), 30000);
   }
   
+  private async logRelayEvent(relayId: string, level: string, event: string, message: string, data?: any) {
+    try {
+      // @ts-ignore
+      await db.relay_logs.create({
+        data: {
+          relay_id: relayId,
+          level,
+          event,
+          message,
+          data: data || {}
+        }
+      });
+    } catch (err) {
+      logger.error(err, 'Failed to write to relay_logs');
+    }
+  }
+  
   async handleConnection(conn: SocketStream, request: FastifyRequest) {
     const connection = conn.socket;
     let authenticated = false;
@@ -95,6 +112,9 @@ export class WebSocketManager {
           }));
           
           logger.info(`Agent connected: ${relayId}`);
+          if (relayId) {
+            this.logRelayEvent(relayId, 'info', 'connected', 'Agent connected successfully', { sessionId, ip: (request.raw as any).socket.remoteAddress });
+          }
           return;
         }
         
@@ -127,6 +147,7 @@ export class WebSocketManager {
         this.connections.delete(relayId);
         redis.del(`session:${relayId}`);
         logger.info(`Agent disconnected: ${relayId}`);
+        this.logRelayEvent(relayId, 'info', 'disconnected', 'Agent disconnected');
       }
     });
     
@@ -203,6 +224,7 @@ export class WebSocketManager {
         });
 
         logger.info(`Sending ${events.length} queued events to ${relayId}`);
+        this.logRelayEvent(relayId, 'info', 'get_queued', `Processing get_queued request`, { count: events.length });
 
         for (const event of events) {
             connection.socket.send(JSON.stringify({

@@ -36,3 +36,16 @@ model webhook_events {
   @@index([relay_id])
   @@index([status])
 }
+
+model relay_logs {
+  id         String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  relay_id   String   @db.VarChar(64)
+  level      String   @db.VarChar(16)
+  event      String   @db.VarChar(32)
+  message    String   @db.Text
+  data       Json?
+  created_at DateTime @default(now()) @db.Timestamp(6)
+
+  @@index([relay_id])
+  @@index([created_at])
+}
