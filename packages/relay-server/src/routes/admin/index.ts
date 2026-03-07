@@ -37,4 +37,22 @@ export async function adminRouter(server: FastifyInstance) {
     });
     return { count: logs.length, logs };
   });
+
+  server.delete('/agents/:relay_id', async (request, reply) => {
+    const { relay_id } = request.params as { relay_id: string };
+    
+    // Delete associated logs and events first? 
+    // Usually cascade delete handles this, but let's be safe or just delete the agent record.
+    // The schema doesn't specify cascade, so we might need to clean up manually or just leave orphans for audit.
+    // Let's just delete the agent record for now to revoke access.
+    
+    try {
+      await db.agents.delete({
+        where: { relay_id }
+      });
+      return { success: true, message: `Agent ${relay_id} deactivated` };
+    } catch (error) {
+      return reply.code(500).send({ error: 'Failed to delete agent', details: error });
+    }
+  });
 }

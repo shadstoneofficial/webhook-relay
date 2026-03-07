@@ -260,10 +260,36 @@
                 <td>${agent.last_seen_at ? new Date(agent.last_seen_at).toLocaleString() : 'Never'}</td>
                 <td>
                     <button onclick="showEvents('${agent.relay_id}')">View Events</button>
+                    <button onclick="deactivateAgent('${agent.relay_id}')" style="background:#ef4444;margin-left:5px;">Deactivate</button>
                 </td>
             `;
             tbody.appendChild(tr);
         });
+    }
+
+    async function deactivateAgent(relayId) {
+        if (!confirm(`Are you sure you want to PERMANENTLY DEACTIVATE ${relayId}? The agent will no longer be able to connect.`)) {
+            return;
+        }
+
+        const key = localStorage.getItem('relaylog_key');
+        try {
+            const res = await fetch(`${API_BASE}/agents/${relayId}`, {
+                method: 'DELETE',
+                headers: { 'x-relaylog-key': key }
+            });
+            const data = await res.json();
+            
+            if (res.ok) {
+                alert('Agent deactivated successfully');
+                loadAgents(); // Refresh list
+            } else {
+                alert('Failed to deactivate: ' + JSON.stringify(data));
+            }
+        } catch (e) {
+            console.error(e);
+            alert('Error deleting agent');
+        }
     }
 
     async function loadEvents(relayId) {

@@ -75,6 +75,17 @@ export class WebSocketManager {
           // Authentication successful
           authenticated = true;
           relayId = message.relay_id;
+
+          // Check for key mismatch (Using a key for ID A, but ID A has no events, while ID B has events?)
+          // Difficult to know "ID B" without a lookup table.
+          // BUT, we can check if the API key provided is valid for ANY other agent.
+          // Actually, `verifyApiKey` checks if the key matches the hash for `message.relay_id`.
+          // If they provided `relay_id` A, and the key works, then they ARE agent A.
+          // The problem is they "should" be agent B.
+          
+          // Heuristic: If this IP address has connected as a DIFFERENT agent recently, warn them?
+          // Too complex for now.
+          
           const sessionId = crypto.randomUUID();
           
           // Store connection
@@ -114,6 +125,20 @@ export class WebSocketManager {
           logger.info(`Agent connected: ${relayId}`);
           if (relayId) {
             this.logRelayEvent(relayId, 'info', 'connected', 'Agent connected successfully', { sessionId, ip: (request.raw as any).socket.remoteAddress });
+            
+            // Check for stale events on OTHER relay_ids for this same API key (heuristic)
+            // Or simply warn them if they have 0 events but are connecting?
+            // Let's add a "queue_status" to the auth_success message
+            const pendingCount = await db.webhook_events.count({
+              where: { relay_id: relayId, status: 'queued' }
+            });
+            
+            if (pendingCount > 0) {
+               connection.send(JSON.stringify({
+                 type: 'info',
+                 message: `You have ${pendingCount} pending events. Send {"type": "get_queued"} to retrieve them.`
+               }));
+            }
           }
           return;
         }
