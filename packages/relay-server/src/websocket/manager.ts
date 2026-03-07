@@ -133,6 +133,7 @@ export class WebSocketManager {
             break;
             
           default:
+            this.logRelayEvent(relayId!, 'warn', 'unknown_message', `Unknown message type received: ${message.type}`, { payload: message });
             this.sendError(connection, 'invalid_message', `Unknown message type: ${message.type}`);
         }
         
