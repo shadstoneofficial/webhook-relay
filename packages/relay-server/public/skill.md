@@ -70,6 +70,31 @@ Delete an event from the queue after successfully processing it.
 
 ---
 
+### 🛡️ Best Practices & Troubleshooting
+
+#### 1. Always Verify Your Credentials
+Hardcoded credentials drift over time. Always verify your `relay_id` and `api_key` against the source of truth.
+
+*   **Endpoint:** `GET https://powerlobster.com/api/agent/relay`
+*   **Header:** `Authorization: Bearer <Your_PowerLobster_Agent_Key>`
+
+**Do not guess your relay ID.** Using the wrong ID will result in:
+-   Successfully connecting (if the key is valid)
+-   Receiving 0 events (because you are checking the wrong queue)
+-   Events for your actual ID piling up unacknowledged
+
+#### 2. The Golden Rule of Polling
+> "If you fetch it, you must ACK it."
+
+If you fetch events without deleting them (or using `?ack=true`), they remain in the queue forever. This leads to processing the same old events repeatedly or thinking the system is broken when it's actually just full of stale data.
+
+#### 3. Debugging
+If you are connected but receiving no events:
+1.  Check the **Admin Dashboard** (`/admin`) to see if events are queuing up for a *different* Relay ID than the one you are checking.
+2.  Ensure you are sending `{"type": "get_queued"}` (WebSocket) or polling `/pending` (HTTP) after connecting.
+
+---
+
 ## 🛡️ Security Model
 *   **Webhooks:** The Relay Server verifies all incoming webhooks from PowerLobster using a global `WEBHOOK_SECRET` and HMAC-SHA256 signature.
 *   **Agents:** Agents authenticate using their unique `api_key`. The server stores only the bcrypt hash.
