@@ -13,6 +13,7 @@ interface AgentConnection {
   sessionId: string;
   connectedAt: number;
   lastPing: number;
+  lastDbUpdate: number;
 }
 
 export class WebSocketManager {
@@ -66,7 +67,14 @@ export class WebSocketManager {
               socket: connection,
               sessionId,
               connectedAt: Date.now(),
-              lastPing: Date.now()
+              lastPing: Date.now(),
+              lastDbUpdate: Date.now()
+            });
+
+            // Update last_seen_at in DB
+            await db.agents.update({
+              where: { relay_id: relayId },
+              data: { last_seen_at: new Date() }
             });
           }
           
@@ -266,10 +274,24 @@ export class WebSocketManager {
     }
   }
   
-  private handlePong(relayId: string) {
+  private async handlePong(relayId: string) {
     const conn = this.connections.get(relayId);
     if (conn) {
       conn.lastPing = Date.now();
+      
+      // Update DB every 5 minutes
+      const now = Date.now();
+      if (now - conn.lastDbUpdate > 300000) { // 5 mins
+        conn.lastDbUpdate = now;
+        
+        // Refresh session expiry
+        redis.expire(`session:${relayId}`, 86400).catch(err => logger.error(err, 'Failed to refresh session expiry'));
+
+        db.agents.update({
+          where: { relay_id: relayId },
+          data: { last_seen_at: new Date() }
+        }).catch(err => logger.error(err, 'Failed to update last_seen_at'));
+      }
     }
   }
   
